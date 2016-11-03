@@ -1,0 +1,84 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../marked-element/marked-element.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<!--
+`whats-new`
+Show changelog like a boss
+
+@demo demo/index.html 
+-->
+
+<dom-module id="whats-new">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax
+      auto
+      url="[[_url]]"
+      handle-as="text"
+      last-response="{{data}}"
+      on-response="showDialog"
+    ></iron-ajax>
+
+    <paper-dialog>
+      <h2>What's new</h2>
+      <paper-dialog-scrollable>
+          <marked-element markdown="[[data]]">
+            <div class="markdown-html"></div>
+          </marked-element>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Show later</paper-button>
+        <paper-button dialog-confirm autofocus on-tap="setSeen">Got it!</paper-button>
+      </div>
+    </paper-dialog>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'whats-new',
+
+      //TODO:: animation?
+      //TODO:: version
+      properties: {
+        urlSchema: {
+          data: String,
+          value: '',
+        },
+        version: {
+          data: String,
+          value: '',
+        },
+        _url: {
+          type: String,
+          computed: 'getUrl(urlSchema, version)'
+        }
+      },
+      getUrl: function() {
+          return this.urlSchema.replace('__version__', this.version);
+      },
+      setUnseen: function() {
+          localStorage.removeItem(this.version);
+      },
+      setSeen: function() {
+          localStorage.setItem(this.version, true);
+      },
+      showDialog: function() {
+          if (!localStorage.getItem(this.version)) {
+              this.querySelector("paper-dialog").open();
+          }
+      }
+
+    });
+  </script>
+</dom-module>
