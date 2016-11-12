@@ -14,12 +14,12 @@ To use it just put it in your html file, like this:
 <whats-new
     url-schema='https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md'
     version='v0.17.0'
+    auto-show
 ></whats-new>
 ```
 and set `url-schema` and `version` to correct values.
 
-The above example shows `polymer-cli` project changelog in a dialog (for
-version `v0.17.0`).
+The above example shows `polymer-cli` project changelog for version `v0.17.0`.
 
 @demo demo/index.html 
 -->
@@ -37,7 +37,6 @@ version `v0.17.0`).
       url="[[_url]]"
       handle-as="text"
       last-response="{{data}}"
-      on-response="showDialog"
     ></iron-ajax>
 
     <paper-dialog>
@@ -79,6 +78,12 @@ version `v0.17.0`).
           type: String,
           value: '',
         },
+        /** Autoshow dialog when `whats-new` is attached
+          */
+        autoShow: {
+          type: Boolean,
+          value: false
+        },
         _url: {
           type: String,
           computed: 'getUrl(urlSchema, version)'
@@ -94,12 +99,12 @@ version `v0.17.0`).
       wasSeen: function() {
           return Boolean(localStorage.getItem(this.version));
       },
-      /** Mark changelog seen, which prevents popup.
+      /** Mark changelog seen.
       */
       setSeen: function() {
           localStorage.setItem(this.version, true);
       },
-      /** Mark changelog unseen, which triggers popup.
+      /** Mark changelog unseen.
       */
       setUnseen: function() {
           localStorage.removeItem(this.version);
@@ -112,10 +117,11 @@ version `v0.17.0`).
           }
       },
       attached: function() {
-          console.log(!this.wasSeen());
           if (!this.wasSeen()) {
-              var changelog = this.querySelector('#changelog');
               changelog.generateRequest();
+              if (this.autoShow) {
+                  this.showDialog();
+              }
           }
       }
 

@@ -19,19 +19,36 @@
     <div class="vertical-section-container centered">
       <h3>Basic whats-new demo</h3>
       <p>
-      This element shows changelog for Polymer-cli project.
-      This is achieved by setting two things
-      - url-schema ('https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md')
-      - version ('v0.17.0')
+          This usage shows changelog for Polymer-cli project.
+          This is achieved by setting two attributes:
+          <ul>
+              <li>url-schema ('https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md') </li>
+              <li>version ('v0.17.0')</li>
+          </ul>
       </p>
       <demo-snippet>
         <template>
+          <paper-button raised onclick="showDialog()">show changelog</paper-button>
+          <paper-button raised onclick="resetWhatsNew()">Reset "whats-new"</paper-button>
           <whats-new
             url-schema='https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md'
             version='v0.17.0'
           ></whats-new>
         </template>
       </demo-snippet>
+      <script>
+        function showDialog() {
+            if (document.querySelector('whats-new').wasSeen()) {
+                alert('Changelog was marked as "seen", use reset button to "unseen" it');
+            } else {
+                document.querySelector('whats-new').showDialog();
+            }
+        }
+        function resetWhatsNew() {
+            document.querySelector('whats-new').setUnseen();
+            alert('"What\'s new" has been reset. Next time you visit the page changelog will show up again');
+        }
+      </script>
     </div>
   </body>
 </html>

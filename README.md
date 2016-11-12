@@ -9,9 +9,7 @@ See element page for details:
 
 TODO:
 
-* [] no ajax when seen
-* [] better demo with reset button
+* [] animation?
 * [] https://beta.webcomponents.org
 * [] polymer 2 version
 * [] simple tests
-* [] animation?
