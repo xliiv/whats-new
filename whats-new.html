@@ -33,7 +33,7 @@ version `v0.17.0`).
     </style>
 
     <iron-ajax
-      auto
+      id='changelog'
       url="[[_url]]"
       handle-as="text"
       last-response="{{data}}"
@@ -85,25 +85,37 @@ version `v0.17.0`).
         }
       },
       /** Gets final url calculated from `schema-url` and `version` properties
-        */
+      */
       getUrl: function() {
           return this.urlSchema.replace('__version__', this.version);
       },
+      /** Tells if dialog was seen
+      */
+      wasSeen: function() {
+          return Boolean(localStorage.getItem(this.version));
+      },
       /** Mark changelog seen, which prevents popup.
-        */
+      */
       setSeen: function() {
           localStorage.setItem(this.version, true);
       },
       /** Mark changelog unseen, which triggers popup.
-        */
+      */
       setUnseen: function() {
           localStorage.removeItem(this.version);
       },
       /** Shows dialog containing changelog.
-        */
+      */
       showDialog: function() {
           if (!localStorage.getItem(this.version)) {
               this.querySelector("paper-dialog").open();
+          }
+      },
+      attached: function() {
+          console.log(!this.wasSeen());
+          if (!this.wasSeen()) {
+              var changelog = this.querySelector('#changelog');
+              changelog.generateRequest();
           }
       }
 
