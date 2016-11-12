@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>whats-new demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../whats-new.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic whats-new demo</h3>
+      <p>
+          This usage shows changelog for Polymer-cli project.
+          This is achieved by setting two attributes:
+          <ul>
+              <li>url-schema ('https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md') </li>
+              <li>version ('v0.17.0')</li>
+          </ul>
+      </p>
+      <demo-snippet>
+        <template>
+          <paper-button raised onclick="showDialog()">show changelog</paper-button>
+          <paper-button raised onclick="resetWhatsNew()">Reset "whats-new"</paper-button>
+          <whats-new
+            url-schema='https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md'
+            version='v0.17.0'
+          ></whats-new>
+        </template>
+      </demo-snippet>
+      <script>
+        function showDialog() {
+            if (document.querySelector('whats-new').wasSeen()) {
+                alert('Changelog has been marked as "seen", use reset button to "unseen" it');
+            } else {
+                document.querySelector('whats-new').showDialog();
+            }
+        }
+        function resetWhatsNew() {
+            document.querySelector('whats-new').setUnseen();
+            alert('Changelog has been reset. Click "show changelog" to raise it again');
+        }
+      </script>
+    </div>
+  </body>
+</html>
