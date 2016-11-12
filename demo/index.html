@@ -39,14 +39,14 @@
       <script>
         function showDialog() {
             if (document.querySelector('whats-new').wasSeen()) {
-                alert('Changelog was marked as "seen", use reset button to "unseen" it');
+                alert('Changelog has been marked as "seen", use reset button to "unseen" it');
             } else {
                 document.querySelector('whats-new').showDialog();
             }
         }
         function resetWhatsNew() {
             document.querySelector('whats-new').setUnseen();
-            alert('"What\'s new" has been reset. Next time you visit the page changelog will show up again');
+            alert('Changelog has been reset. Click "show changelog" to raise it again');
         }
       </script>
     </div>
