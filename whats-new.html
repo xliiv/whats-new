@@ -6,8 +6,20 @@
 <link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
 
 <!--
-`whats-new`
-Show changelog like a boss
+`<whats-new>` allows you to show your changelog file in a popup.
+
+To use it just put it in your html file, like this:
+
+```
+<whats-new
+    url-schema='https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md'
+    version='v0.17.0'
+></whats-new>
+```
+and set `url-schema` and `version` to correct values.
+
+The above example shows `polymer-cli` project changelog in a dialog (for
+version `v0.17.0`).
 
 @demo demo/index.html 
 -->
@@ -48,15 +60,23 @@ Show changelog like a boss
 
       is: 'whats-new',
 
-      //TODO:: animation?
-      //TODO:: version
       properties: {
+        /** URL to public `markdown` file where changelog is stored.
+          *
+          * This url should contain "magic" word `__version__` in place where
+          * tag is stored. For example:
+          * `https://raw.githubusercontent.com/Polymer/polymer-cli/__version__/CHANGELOG.md`
+          * which was get from original url:
+          * `https://raw.githubusercontent.com/Polymer/polymer-cli/v0.17.0/CHANGELOG.md`
+          */
         urlSchema: {
-          data: String,
+          type: String,
           value: '',
         },
+        /** Version of changelog to be shown, for example: `v0.17.0`
+          */
         version: {
-          data: String,
+          type: String,
           value: '',
         },
         _url: {
@@ -64,15 +84,23 @@ Show changelog like a boss
           computed: 'getUrl(urlSchema, version)'
         }
       },
+      /** Gets final url calculated from `schema-url` and `version` properties
+        */
       getUrl: function() {
           return this.urlSchema.replace('__version__', this.version);
       },
-      setUnseen: function() {
-          localStorage.removeItem(this.version);
-      },
+      /** Mark changelog seen, which prevents popup.
+        */
       setSeen: function() {
           localStorage.setItem(this.version, true);
       },
+      /** Mark changelog unseen, which triggers popup.
+        */
+      setUnseen: function() {
+          localStorage.removeItem(this.version);
+      },
+      /** Shows dialog containing changelog.
+        */
       showDialog: function() {
           if (!localStorage.getItem(this.version)) {
               this.querySelector("paper-dialog").open();

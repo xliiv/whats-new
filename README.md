@@ -1,45 +1,16 @@
 # \<whats-new\>
 
-Show changelog like a boss
+Show markdown changelog like a boss.
+
+The `<whats-new>` element allows you to show your markdown changelog file in a popup.
+See element page for details:
+
+[Element Page](https://xliiv.github.io/whats-new/components/whats-new/)
 
 TODO:
 
-* [] docs
-* [] animation?
+* [] better demo with reset button
+* [] no ajax when seen
+* [] https://beta.webcomponents.org
 * [] simple tests
-
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
-
-## Viewing Your Application
-
-```
-$ polymer serve
-```
-
-## Building Your Application
-
-```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+* [] animation?
