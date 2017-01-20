@@ -3,8 +3,8 @@
 Show markdown changelog like a boss.
 
 The `<whats-new>` element allows you to show your markdown changelog file in a popup.
-See [Element Page](https://xliiv.github.io/whats-new/components/whats-new/) for details:
 
+See [Element Page](https://xliiv.github.io/whats-new/components/whats-new/) for details.
 
 
 TODO:
