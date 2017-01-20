@@ -9,7 +9,7 @@ See element page for details:
 
 TODO:
 
-* [] animation?
-* [] https://beta.webcomponents.org
-* [] polymer 2 version
-* [] simple tests
+* [ ] animation?
+* [x] https://webcomponents.org
+* [ ] polymer 2 version
+* [ ] simple tests
